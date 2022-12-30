@@ -1,2 +1,3 @@
-# shader-how-to
-basic shader techniques templates
+# Shader How To
+
+A collection for shader techniques templates
