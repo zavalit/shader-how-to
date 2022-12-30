@@ -1,3 +1,5 @@
 package.json
 dist
 node_modules
+yarn.lock
+.parcel*

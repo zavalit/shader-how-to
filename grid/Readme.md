@@ -10,3 +10,17 @@ parcel index.html
 ```
 
 
+### Fix grid position and sizes
+
+to do it simply uncomment this code in `vertex.glsl`
+
+````
+
+  // #put it in a ceneter
+  vUv -= .5;
+
+  // #fix resolution
+  float aspect = uResolution.x/uResolution.y;
+  vUv.x *= aspect;
+  
+```
