@@ -26,10 +26,6 @@ if (!gl.getProgramParameter(prg, gl.LINK_STATUS)) {
 };
 
 
-// NOTE! These are only here to unclutter the diagram.
-// It is safe to detach and delete shaders once
-// a program is linked though it is arguably not common.
-// and I usually don't do it.
 gl.detachShader(prg, vertexShader);
 gl.deleteShader(vertexShader);
 gl.detachShader(prg, fragmentShader);
@@ -108,8 +104,6 @@ var primitiveType = gl.TRIANGLES;
 var offset = 0;
 var count = 6;
 gl.drawArrays(primitiveType, offset, count);
-
-
 
 
 function resizeCanvasToDisplaySize(canvas, multiplier) {
