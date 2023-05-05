@@ -2,4 +2,7 @@ package.json
 dist
 node_modules
 yarn.lock
-.parcel*
+.parcel*color_mask
+.parcel-cache
+color_mask
+line_to_square

@@ -6,6 +6,14 @@ type WebGLFactoryPops = {
   height?: number;
 };
 
+
+const MOUSE_COORDS = {
+  x: 0,
+  y: 0
+}
+
+
+
 export default (
   { gl, vertexShader, fragmentShader, ...props }: WebGLFactoryPops,
   PARAMS: { [key: string]: number }
@@ -25,6 +33,15 @@ export default (
   };
 
   specifyCanvasSize();
+
+  const listenToMouseMove = (ev: MouseEvent)=> {
+
+    const {top, bottom, left} =  (gl.canvas as HTMLCanvasElement).getBoundingClientRect()
+    const height = bottom - top;
+    const fromTop = ev.clientY - top;
+    MOUSE_COORDS.x = ev.clientX - left
+    MOUSE_COORDS.y = height - fromTop;
+  }
 
   // initiaize program and attach shaders
   const prog = gl.createProgram()!;
@@ -69,6 +86,8 @@ export default (
   gl.uniform2fv(u1, [gl.drawingBufferWidth, gl.drawingBufferHeight]);
   const u2 = gl.getUniformLocation(prog, "uTime");
   gl.uniform1f(u2, 0);
+  const u3 = gl.getUniformLocation(prog, "uMouse");
+  gl.uniform2fv(u3, [MOUSE_COORDS.x, MOUSE_COORDS.y]);
 
   // draw
   const animate = (time: number) => {
@@ -79,11 +98,13 @@ export default (
 
   const step = (time: number) => {
     gl.uniform1f(u2, time);
+    gl.uniform2fv(u3, [MOUSE_COORDS.x, MOUSE_COORDS.y]);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   };
 
   // listeners
   window.addEventListener("resize", specifyCanvasSize, false);
+  window.addEventListener("mousemove", listenToMouseMove, false)
 
   return {
     animate,
